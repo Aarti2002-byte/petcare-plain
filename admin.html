@@ -1,0 +1,97 @@
+<script>
+if(localStorage.getItem("adminLoggedIn") !== "true"){
+  window.location.href = "admin-login.html";
+}
+</script>
+<button onclick="logoutAdmin()">Logout</button>
+
+<script>
+function logoutAdmin(){
+  localStorage.removeItem("adminLoggedIn");
+  window.location.href = "admin-login.html";
+}
+</script>
+<h2>Add New Pet</h2>
+
+<input id="petName" placeholder="Pet Name">
+<input id="petAge" placeholder="Pet Age">
+<input id="petImage" type="file">
+<button onclick="addPet()">Add Pet</button>
+
+<hr>
+
+<h3>All Pets</h3>
+<div id="adminPetList"></div>
+<h2>Adoption Requests</h2>
+<div id="requestList"></div>
+<body class="admin-body">
+
+<div class="admin-wrapper">
+
+<!-- SIDEBAR -->
+<aside class="admin-sidebar">
+  <h2>Admin Panel</h2>
+  <ul>
+    <li onclick="showSection('dashboard')">Dashboard</li>
+    <li onclick="showSection('pets')">Pets</li>
+    <li onclick="showSection('requests')">Requests</li>
+    <li onclick="logoutAdmin()">Logout</li>
+  </ul>
+</aside>
+
+<!-- CONTENT -->
+<main class="admin-content">
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <h1>Dashboard</h1>
+  <div class="stats">
+    <div>Total Pets: <span id="totalPets"></span></div>
+    <div>Requests: <span id="totalReq"></span></div>
+  </div>
+</section>
+
+<!-- PETS -->
+<section id="pets" class="hidden">
+  <h2>Add Pet</h2>
+  <input id="petName" placeholder="Pet Name">
+  <input id="petAge" placeholder="Pet Age">
+  <input type="file" id="petImage">
+  <button onclick="addPet()">Add Pet</button>
+
+  <div id="adminPetList"></div>
+</section>
+
+<!-- REQUESTS -->
+<section id="requests" class="hidden">
+  <h2>Adoption Requests</h2>
+  <div id="requestList"></div>
+</section>
+
+</main>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+<h2>Adoption Requests</h2>
+<div id="requestList"></div>
+<section id="pets" class="hidden">
+  <h2>Manage Pets</h2>
+
+  <!-- ADD / UPDATE FORM -->
+  <div class="pet-form">
+    <input id="petName" placeholder="Pet Name">
+    <input id="petAge" placeholder="Pet Age">
+    <select id="petStatus">
+      <option value="Available">Available</option>
+      <option value="Adopted">Adopted</option>
+    </select>
+    <input type="file" id="petImage">
+    <button onclick="savePet()">Save Pet</button>
+    <button onclick="resetForm()">Clear</button>
+  </div>
+
+  <!-- PET LIST -->
+  <div id="adminPetList" class="admin-pet-list"></div>
+</section>
+

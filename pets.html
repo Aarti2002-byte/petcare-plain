@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pets</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+  </head>
+
+  <body>
+
+    <header>
+      <h2>🐾 Available Pets</h2>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="pets.html">Pets</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="admin-login.html">Admin</a>
+      </nav>
+    </header>
+
+    <!-- ===== INITIAL PET DATA (RUNS ONLY ONCE) ===== -->
+    <script>
+      if (!localStorage.getItem("pets")) {
+        const defaultPets = [
+          { name: "Buddy", img: "bg1.jpg", age: "2 Years", type: "Golden Retriever" },
+          { name: "Luna", img: "cat.jpg", age: "1 Year", type: "Persian Cat" },
+          { name: "Max", img: "dog 2.jpg", age: "3 Years", type: "Labrador" }
+        ];
+        localStorage.setItem("pets", JSON.stringify(defaultPets));
+      }
+    </script>
+
+    <section class="section">
+      <h2>Featured Pets</h2>
+
+      <div class="cards" id="petsContainer">
+
+        <!-- STATIC PETS -->
+        <div class="card">
+          <img src="bg1.jpg" />
+          <h3>Buddy</h3>
+          <p>Golden Retriever • 2 Years</p>
+          <button class="btn" onclick="adoptPet('Buddy')">Adopt</button>
+        </div>
+
+        <div class="card">
+          <img src="cat.jpg" />
+          <h3>Luna</h3>
+          <p>Persian Cat • 1 Year</p>
+          <button class="btn" onclick="adoptPet('Luna')">Adopt</button>
+        </div>
+
+        <div class="card">
+          <img src="dog 2.jpg" />
+          <h3>Max</h3>
+          <p>Labrador • 3 Years</p>
+          <button class="btn" onclick="adoptPet('Max')">Adopt</button>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>© 2026 PetCare</footer>
+
+    <!-- ===== DYNAMIC PET LOAD ===== -->
+    <script>
+      let pets = JSON.parse(localStorage.getItem("pets")) || [];
+      let box = document.getElementById("petsContainer");
+
+      pets.forEach(p => {
+        box.innerHTML += `
+          <div class="card">
+            <img src="${p.img}">
+            <h3>${p.name}</h3>
+            <p>${p.type || "Lovely Pet"} • ${p.age || "1 Year"}</p>
+            <button class="btn" onclick="adoptPet('${p.name}')">Adopt</button>
+          </div>
+        `;
+      });
+
+      function adoptPet(petName) {
+        localStorage.setItem("selectedPet", petName);
+        window.location.href = "adopt.html";
+      }
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pet Adoption</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h2>🐾 PetCare</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="pets.html">Pets</a>
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+    <a href="admin-login.html">Admin</a>
+    <a href="#contact">contact</a>
+    <a href="#about" id="aboutLink">About</a>
+
+  
+  </nav>
+</header>
+
+
+
+<section class="hero">
+  <div class="hero-box">
+    <h1>Find Your Forever Friend</h1>
+    <p>Adopt a pet and give them a loving home</p>
+    <a href="pets.html" class="btn">Adopt Now</a>
+    <a href="pets.html" class="btn">View Pets</a>
+
+  </div>
+</section>
+<section id="about" class="about">
+  <h2>About Us</h2>
+  <p>
+    We are a pet adoption platform dedicated to giving homeless animals
+    a second chance at life. Our mission is to connect loving families
+    with pets in need of care and compassion.
+  </p>
+
+  <div class="about-cards">
+    <div class="about-card">
+      <i class="fa-solid fa-heart"></i>
+      <h3>Our Mission</h3>
+      <p>Saving lives through responsible adoption</p>
+    </div>
+
+    <div class="about-card">
+      <i class="fa-solid fa-paw"></i>
+      <h3>Our Pets</h3>
+      <p>Healthy, vaccinated, and ready for adoption</p>
+    </div>
+
+    <div class="about-card">
+      <i class="fa-solid fa-house"></i>
+      <h3>Our Promise</h3>
+      <p>Lifelong support for adopters</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <h2>Featured Pets</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="images/bg1.jpg">
+      <h3>Buddy</h3>
+      <p>Golden Retriever • 2 Years</p>
+    </div>
+    <div class="card">
+      <img src="images/cat.jpg">
+      <h3>Luna</h3>
+      <p>Persian Cat • 1 Year</p>
+    </div>
+    <div class="card">
+      <img src="images/dog 2.jpg">
+      <h3>Max</h3>
+      <p>Labrador • 3 Years</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Us</h2>
+
+  <div class="contact-container">
+
+    <div class="contact-info">
+      <p><i class="fa-solid fa-location-dot"></i> Ambala, Haryana</p>
+      <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+      <p><i class="fa-solid fa-envelope"></i> info@petadoption.com</p>
+    </div>
+
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button class="btn">Send Message</button>
+    </form>
+
+  </div>
+</section>
+<script>
+/* ===== ABOUT SECTION COUNTER ===== */
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+  const update = () => {
+    const target = +counter.getAttribute("data-target");
+    const current = +counter.innerText;
+    const increment = Math.ceil(target / 80);
+
+    if(current < target){
+      counter.innerText = current + increment;
+      setTimeout(update, 30);
+    } else {
+      counter.innerText = target;
+    }
+  };
+  update();
+});
+
+/* ===== CONTACT FORM LOGIC ===== */
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let name = cname.value.trim();
+  let email = cemail.value.trim();
+  let msg = cmsg.value.trim();
+
+  if(name === "" || email === "" || msg === ""){
+    document.getElementById("contactMsg").innerText =
+      "❌ Please fill all fields";
+    document.getElementById("contactMsg").style.color = "red";
+    return;
+  }
+
+  let contacts = JSON.parse(localStorage.getItem("contactMessages")) || [];
+
+  contacts.push({
+    name,
+    email,
+    msg,
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem("contactMessages", JSON.stringify(contacts));
+
+  document.getElementById("contactMsg").innerText =
+    "✅ Thank you for contacting us. We will get back to you soon.";
+  document.getElementById("contactMsg").style.color = "green";
+
+  this.reset();
+});
+</script>
+<script>
+const aboutLink = document.getElementById("aboutLink");
+const aboutBox  = document.querySelector(".about-container");
+
+let aboutAnimated = false;
+
+aboutLink.addEventListener("click", () => {
+  setTimeout(() => {
+    if(!aboutAnimated){
+      aboutBox.classList.add("about-show");
+      aboutAnimated = true;
+    }
+  }, 400); // wait for smooth scroll
+});
+</script>
+
+<footer>© 2026 PetCare</footer>
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Adoption Requests</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2 class="title">Adoption Requests</h2>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>Pet</th>
+      <th>User</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="requestData"></tbody>
+</table>
+
+<script>
+let data = JSON.parse(localStorage.getItem("adoptionRequests")) || [];
+let table = document.getElementById("requestData");
+
+function loadRequests(){
+  table.innerHTML = "";
+  data.forEach((req, index) => {
+    table.innerHTML += `
+      <tr>
+        <td>${req.pet}</td>
+        <td>${req.name}</td>
+        <td>${req.email}</td>
+        <td>${req.phone}</td>
+        <td>${req.status}</td>
+        <td>
+          <button class="btn" onclick="updateStatus(${index}, 'Approved')">Approve</button>
+          <button class="btn reject" onclick="updateStatus(${index}, 'Rejected')">Reject</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+function updateStatus(index, status){
+  data[index].status = status;
+  localStorage.setItem("adoptionRequests", JSON.stringify(data));
+  loadRequests();
+}
+
+loadRequests();
+</script>
+
+</body>
+</html>
